@@ -8,3 +8,13 @@ export function login(data) {
     data: data
   })
 }
+
+
+export function register(data) {
+  return request({
+    url:  API.apiRegister,
+    method: 'post',
+    data: data
+  })
+}
+

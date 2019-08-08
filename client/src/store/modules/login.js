@@ -1,5 +1,5 @@
 import * as actionApi  from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { setToken } from '@/utils/auth'
 
 const login = {
   state: {
@@ -18,6 +18,15 @@ const login = {
         return err
       }
     },
+
+    async Register(_, data) {
+      try {
+        const register =  await actionApi.register(data)
+        return register
+       } catch(err) {
+         return err
+       }
+    }
   }
 }
 export default login
