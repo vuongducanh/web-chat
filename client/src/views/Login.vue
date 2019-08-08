@@ -3,11 +3,11 @@
     <el-form>
       <el-form-item
         required
-        label="username"
+        label="email"
       >
         <el-input
-          v-model="username"
-          placeholder="enter username"
+          v-model="email"
+          placeholder="enter email"
           type="text"
           auto-complete="off"
         />
@@ -42,7 +42,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      username: '',
+      email: '',
       password: ''
     }
   },
@@ -56,10 +56,12 @@ export default {
   methods: {
     handleLogin() {
       let dataLogin = {
-        username: this.username,
+        email: this.email,
         password: this.password
       }
-      this.$store.dispatch('Login', dataLogin)
+      this.$store.dispatch('Login', dataLogin).then(() => {
+        this.$router.push({ path: '/dashboard' })
+      })
     }
   }
 }

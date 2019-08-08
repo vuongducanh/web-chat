@@ -1,4 +1,5 @@
 import * as actionApi  from '@/api/login'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const login = {
   state: {
@@ -11,7 +12,8 @@ const login = {
   actions: {
     async Login(_, data) {
       try {
-        await actionApi.login(data)
+       const infoLogin =  await actionApi.login(data)
+       setToken(infoLogin.data.token)
       } catch(err) {
         return err
       }

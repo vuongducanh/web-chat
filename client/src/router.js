@@ -9,12 +9,26 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/Home.vue')
+      component: () => import('@/views/Home.vue'),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/Login.vue')
+      component: () => import('@/views/Login.vue'),
+      meta: {
+          guest: true
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/Dashboard.vue'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
