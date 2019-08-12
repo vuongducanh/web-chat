@@ -1,19 +1,24 @@
 import * as actionApi  from '@/api/login'
-import { setToken } from '@/utils/auth'
+import { setToken, getToken } from '@/utils/auth'
 
 const login = {
   state: {
-    infoUsername: []
+    infoUsername: [],
+    token: getToken()
   },
 
   mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    }
   },
 
   actions: {
-    async Login(_, data) {
+    async Login({ commit }, data) {
       try {
        const infoLogin =  await actionApi.login(data)
        setToken(infoLogin.data.token)
+       commit('SET_TOKEN', infoLogin.data.token)
       } catch(err) {
         throw new Error(err)
       }

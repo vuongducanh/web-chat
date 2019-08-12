@@ -1,16 +1,19 @@
-const express = require('express');
-const User = require('../../models/User');
-const gravatar = require('gravatar');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
+const express = require('express')
+const User = require('../../models/User')
+const gravatar = require('gravatar')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const keys = require('../../config/keys')
 
-const router = express.Router();
+const router = express.Router()
+
+const validateRegisterInput = require('../../validation/register')
+const validateLoginInput = require ('../../validation/login')
 
 router.post('/register', (req, res) => {
-  if (req.body.name === '' || req.body.email === '' || req.body.password === '') {
-    return res.status(400).json({ message: "error" })
-  }
+  const validation = validateRegisterInput(req.body)
+
+  if (validation.error) return res.status(400).json({message: validation.error.details[0].message})
 
   User.findOne({ email: req.body.email })
     .then(user => {
@@ -51,9 +54,9 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-  if (req.body.email === '' || req.body.password === '') {
-    return res.status(400).json({ message: "login fail" })
-  }
+  const validationLogin = validateLoginInput(req.body)
+
+  if (validationLogin.error) return res.status(400).json({ message: validationLogin.error.details[0].message })
 
   User.findOne({ email: req.body.email })
     .then(user => {
@@ -87,7 +90,7 @@ router.get('/list-users', (req, res) => {
     .then(listUsers => {
       res.json({
         listUsers,
-        total_length: listUsers.length - 1
+        total_length: listUsers.length
       })
     })
     .catch(err => {

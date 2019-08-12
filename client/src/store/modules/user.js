@@ -1,4 +1,5 @@
-import * as actionApi  from '@/api/user'
+
+import { getListUser } from '../../api/user';
 
 const user = {
   state: {
@@ -20,44 +21,10 @@ const user = {
   },
 
   actions: {
-    async getAdmin({ commit }) {
+    async getListUser({ commit }) {
       try {
-        const listData = await actionApi.get()
-        commit('GET_ADMIN', listData.data)
-      } catch(err) {
-        return err
-      }
-    },
-
-    async createNew({ commit }, data) {
-      try {
-        const listData = await actionApi.create(data)
-        commit('CREATE_USER', listData.data.data[0])
-      } catch(err) {
-        return err
-      }
-    },
-
-    async removeUser(_, id) {
-      try {
-        await actionApi.remove(id)
-      } catch(err) {
-        return err
-      }
-    },
-
-    async updateUser(_, params) {
-      try {
-        await actionApi.update(params.id, params)
-      } catch(err) {
-        return err
-      }
-    },
-
-    async searchUser({commit}, keySearch) {
-      try {
-        const listUserFilter = await actionApi.search(keySearch)
-        commit("SEARCH_USER", listUserFilter.data.data)
+        const listData = await getListUser()
+        console.log(listData)
       } catch(err) {
         return err
       }
