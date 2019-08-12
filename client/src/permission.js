@@ -1,5 +1,6 @@
 import router from './router'
 import { getToken } from '@/utils/auth' // getToken from cookie
+import store from './store'
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth) || to.path !== '/login') {
@@ -9,14 +10,26 @@ router.beforeEach((to, from, next) => {
         params: { nextUrl: to.fullPath }
       })
     } else {
-      next()
+      store.dispatch('getCurrentAccount').then(() => {
+        next()
+      }).catch(() => {
+        store.dispatch('LogOut').then(() => {
+          next({ path: '/' })
+        })
+      })
     }
   } else if (to.matched.some(record => record.meta.guest)) {
     if (typeof getToken() === 'undefined') {
       next()
     }
     else {
-      next({ name: 'dashboard' })
+      store.dispatch('getCurrentAccount').then(() => {
+         next({ name: 'dashboard' })
+      }).catch(() => {
+        store.dispatch('LogOut').then(() => {
+          next({ path: '/' })
+        })
+      })
     }
   } else {
     next()

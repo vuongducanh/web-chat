@@ -1,5 +1,6 @@
 
-import { getListUser } from '../../api/user';
+import { getCurrentAccount } from '../../api/user';
+import { removeToken } from '@/utils/auth'
 
 const user = {
   state: {
@@ -7,26 +8,25 @@ const user = {
   },
 
   mutations: {
-    GET_ADMIN: (state, listAdmin) => {
-      state.listData = listAdmin
-    },
-
-    CREATE_USER: (state, listUser) => {
-      state.listData.unshift(listUser)
-    },
-
-    SEARCH_USER: (state, listUserFilter) => {
-      state.listData = listUserFilter
-    }
+   
   },
 
   actions: {
-    async getListUser({ commit }) {
+    async getCurrentAccount({ commit }) {
       try {
-        const listData = await getListUser()
-        console.log(listData)
+        const account = await getCurrentAccount()
+        return account
       } catch(err) {
-        return err
+        throw new Error(err)
+      }
+    },
+
+    async LogOut({ commit }) {
+      try {
+        commit('SET_TOKEN', '')
+        removeToken()
+      } catch (err) {
+        throw new Error(err)
       }
     }
   }

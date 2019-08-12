@@ -4,6 +4,7 @@ const gravatar = require('gravatar')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const keys = require('../../config/keys')
+const auth = require('../../config/middleware')
 
 const router = express.Router()
 
@@ -85,22 +86,23 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/list-users', (req, res) => {
-  User.find({})
-    .then(listUsers => {
-      res.json({
-        listUsers,
-        total_length: listUsers.length
-      })
-    })
-    .catch(err => {
-      return res.status(404).json({ message: "error" })
-    })
-})
+// router.get('/list-users', auth, (req, res) => {
+//   User.find({})
+//     .then(listUsers => {
+//       res.json({
+//         listUsers,
+//         total_length: listUsers.length
+//       })
+//     })
+//     .catch(err => {
+//       return res.status(404).json({ message: "error" })
+//     })
+// })
 
-router.get('/account', (req, res) => {
+router.get('/account', auth, async (req, res) => {
+  const currentUser = await User.findById(req.user.id).select('-password')
   res.json({
-    message: 'hihi'
+    data: currentUser
   })
 })
 

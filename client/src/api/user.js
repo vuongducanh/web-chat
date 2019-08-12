@@ -6,3 +6,10 @@ export function getListUser() {
     method: 'get'
   })
 }
+
+export function getCurrentAccount() {
+  return request({
+    url:  '/api/users/account',
+    method: 'get'
+  })
+}
