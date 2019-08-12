@@ -29,6 +29,10 @@ export default new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '*',
+      component: () => import('@/views/404.vue')
     }
   ]
 })
