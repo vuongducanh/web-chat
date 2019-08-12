@@ -34,7 +34,16 @@ router.post('/register', (req, res) => {
           if (err) throw err;
           newUser.password = hash
           newUser.save()
-            .then(user => res.json(user))
+            .then((user) => {
+              const dataUser = {
+                avatar: user.avatar,
+                date: user.date,
+                email: user.email,
+                name: user.name,
+                id: user.id
+              }
+              res.json(dataUser)
+            })
             .catch(err => console.log(err))
         })
       }
@@ -49,7 +58,7 @@ router.post('/login', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
-        return res.status(404).json({ message: 'User not found' })
+        return res.status(400).json({ message: 'User not found' })
       }
 
       bcrypt.compare(req.body.password, user.password)
@@ -57,7 +66,7 @@ router.post('/login', (req, res) => {
           // web token
           // sign token
           if (isMatch) {
-            const payload = { id: user.id, name: user.name, avatar: user.avatar, }
+            const payload = { id: user.id, name: user.name, avatar: user.avatar }
 
             jwt.sign(payload, keys.secretOrKey, function (err, token) {
               res.json({

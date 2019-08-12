@@ -15,7 +15,7 @@ const login = {
        const infoLogin =  await actionApi.login(data)
        setToken(infoLogin.data.token)
       } catch(err) {
-        return err
+        throw new Error(err)
       }
     },
 
@@ -24,7 +24,7 @@ const login = {
         const register =  await actionApi.register(data)
         return register
        } catch(err) {
-         return err
+        throw new Error(err)
        }
     }
   }

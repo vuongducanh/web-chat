@@ -1,18 +1,16 @@
 import request from '@/utils/request'
-import API from '../constants/constants-api'
 
 export function login(data) {
   return request({
-    url:  API.apiLogin,
+    url:  `/api/users/login`,
     method: 'post',
     data: data
   })
 }
 
-
 export function register(data) {
   return request({
-    url:  API.apiRegister,
+    url:  `/api/users/register`,
     method: 'post',
     data: data
   })

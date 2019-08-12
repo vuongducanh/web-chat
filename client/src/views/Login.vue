@@ -4,11 +4,11 @@
       <div class="signin-form profile">
         <h3>Login</h3>
         <div class="login-form">
-          <form v-on:submit.prevent="handleLogin">
-            <input v-model="email" name="email" autocomplete placeholder="E-mail" type="text" />
+          <form autocomplete="off" v-on:submit.prevent="handleLogin">
+            <input v-model="email" autocomplete="false" name="email" placeholder="E-mail" type="text" />
             <input v-model="password" name="password" autocomplete placeholder="Password" type="password" />
             <div class="tp">
-              <input type="submit" @click="handleLogin" value="LOGIN NOW" />
+              <input type="submit" value="LOGIN NOW" />
             </div>
           </form>
         </div>
@@ -34,7 +34,7 @@
               <input v-model="regpassword" placeholder="Newpassword" autocomplete type="password" />
               <input v-model="confirmpassword" placeholder="Confirmpassword" autocomplete type="password" />
               <div class="tp">
-                <input type="submit" @click="createAccount" value="REGISTER" />
+                <input type="submit" value="REGISTER" />
               </div>
             </form>
           </div>
@@ -68,6 +68,8 @@ export default {
 
       this.$store.dispatch("Login", dataLogin).then(() => {
         this.$router.push({ path: "/dashboard" })
+      }).catch(err => {
+        throw new Error(err)
       })
     },
 
@@ -91,15 +93,18 @@ export default {
       }
 
       this.$store.dispatch("Register", data)
-      .then(res => {
+      .then(() => {
         this.$message({
           message: 'Create account success',
           type: 'success'
         });
-        this.showFormRegister = false
+
+        setTimeout(() => {
+          this.showFormRegister = false
+        }, 3000)
       }).catch(err => {
-        console.log(err)
         this.showFormRegister = true
+        throw new Error(err)
       })
     }
   }
