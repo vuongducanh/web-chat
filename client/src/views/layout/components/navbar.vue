@@ -83,7 +83,6 @@ export default {
 }
 </script>
 
-
 <style lang="scss">
   @import './css/component.scss';
   @import './css/index.scss';
