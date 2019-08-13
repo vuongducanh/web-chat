@@ -61,8 +61,18 @@
         </a>
       </li>
       <li>
-        <a class="codrops-icon codrops-icon-drop">
-          <span>Back to the Codrops Article</span>
+        <a class="codrops-icon">
+          <el-dropdown class="avatar-container right-menu-item" trigger="click">
+          <div class="avatar-wrapper">
+            <img :src="getInfoUser.avatar" class="user-avatar">
+            <i class="el-icon-caret-bottom"/>
+          </div>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item divided>
+              <span class="logout" @click="handleLogout">Log Out</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
         </a>
       </li>
     </ul>
@@ -77,8 +87,22 @@ Vue.use(classie)
 Vue.use(gnmenu)
 
 export default {
+  computed: {
+    getInfoUser() {
+      return this.$store.state.user.infoUser
+    }
+  },
+
   mounted() {
     new gnMenu( document.getElementById( 'gn-menu' ))
+  },
+
+  methods: {
+    handleLogout() {
+      this.$store.dispatch('LogOut').then(() => {
+        location.reload()
+      })
+    }
   }
 }
 </script>
@@ -87,5 +111,10 @@ export default {
   @import './css/component.scss';
   @import './css/index.scss';
   @import './css/normalize.scss';
+
+  .user-avatar {
+    width: 45px;
+    border-radius: 50%;
+  }
 </style>
 
