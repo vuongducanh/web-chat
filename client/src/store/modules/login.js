@@ -19,8 +19,9 @@ const login = {
        const infoLogin =  await actionApi.login(data)
        setToken(infoLogin.data.token)
        commit('SET_TOKEN', infoLogin.data.token)
+       return infoLogin.data
       } catch(err) {
-        throw new Error(err)
+        await Promise.reject(err.response.data)
       }
     },
 
@@ -29,7 +30,7 @@ const login = {
         const register =  await actionApi.register(data)
         return register
        } catch(err) {
-        throw new Error(err)
+        await Promise.reject(err.response.data)
        }
     }
   }

@@ -3,7 +3,7 @@ import store from '../store'
 import { getToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: 'http://192.168.1.161:5000',
+  baseURL: 'http://192.168.3.207:5000',
   timeout: 0,
   headers: {
     'Content-Type': 'application/json'

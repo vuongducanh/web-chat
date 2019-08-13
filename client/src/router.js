@@ -11,7 +11,8 @@ export default new Router({
       name: 'home',
       component: () => import('@/views/Home.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        layout: 'default-layout'
       }
     },
     {
@@ -19,7 +20,8 @@ export default new Router({
       name: 'login',
       component: () => import('@/views/Login.vue'),
       meta: {
-          guest: true
+        guest: true,
+        layout: 'no-layout'
       }
     },
     {
@@ -27,7 +29,8 @@ export default new Router({
       name: 'dashboard',
       component: () => import('@/views/Dashboard.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        layout: 'default-layout'
       }
     },
     {

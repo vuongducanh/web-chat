@@ -67,9 +67,15 @@ export default {
       }
 
       this.$store.dispatch("Login", dataLogin).then(() => {
+        this.$message.closeAll()
         this.$router.push({ path: "/dashboard" })
       }).catch(err => {
-        throw new Error(err)
+        this.$message({
+          showClose: true,
+          message: err.message,
+          type: 'error',
+          duration: 2000
+        })
       })
     },
 
@@ -104,7 +110,12 @@ export default {
         }, 3000)
       }).catch(err => {
         this.showFormRegister = true
-        throw new Error(err)
+        this.$message({
+          showClose: true,
+          message: err.message,
+          type: 'error',
+          duration: 2000
+        });
       })
     }
   }
