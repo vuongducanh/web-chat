@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-nav">
     <ul id="gn-menu" class="gn-menu-main">
       <li class="gn-trigger">
         <a class="gn-icon gn-icon-menu">
@@ -8,67 +8,40 @@
         <nav class="gn-menu-wrapper">
           <div class="gn-scroller">
             <ul class="gn-menu">
-              <li class="gn-search-item">
-                <input placeholder="Search" type="search" class="gn-search" />
-                <a class="gn-icon gn-icon-search">
-                  <span>Search</span>
-                </a>
+              <li>
+                <router-link tag="a" to="/dashboard">
+                   <a class="gn-icon gn-icon-cog">Dashboard</a>
+                </router-link>
               </li>
               <li>
-                <a class="gn-icon gn-icon-download">Downloads</a>
-                <ul class="gn-submenu">
-                  <li>
-                    <a class="gn-icon gn-icon-illustrator">Vector Illustrations</a>
-                  </li>
-                  <li>
-                    <a class="gn-icon gn-icon-photoshop">Photoshop files</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a class="gn-icon gn-icon-cog">Settings</a>
+                <router-link tag="a" to="/">
+                  <a class="gn-icon gn-icon-download">Home</a>
+                </router-link>
               </li>
               <li>
                 <a class="gn-icon gn-icon-help">Help</a>
               </li>
               <li>
-                <a class="gn-icon gn-icon-archive">Archives</a>
-                <ul class="gn-submenu">
-                  <li>
-                    <a class="gn-icon gn-icon-article">Articles</a>
-                  </li>
-                  <li>
-                    <a class="gn-icon gn-icon-pictures">Images</a>
-                  </li>
-                  <li>
-                    <a class="gn-icon gn-icon-videos">Videos</a>
-                  </li>
-                </ul>
+                <a class="gn-icon gn-icon-videos" @click="handleLogout">Log Out</a>
               </li>
             </ul>
           </div>
-          <!-- /gn-scroller -->
         </nav>
       </li>
       <li>
         <a>Codrops</a>
       </li>
       <li>
-        <a
-          class="codrops-icon codrops-icon-prev"
-        >
-          <span>Previous Demo</span>
-        </a>
+        <router-link tag="a" to="/profile">
+          <a >Profile</a>
+        </router-link>
       </li>
       <li>
-        <a class="codrops-icon">
+        <a class="codrops-icon icon-avatar">
           <el-dropdown class="avatar-container right-menu-item" trigger="click">
-          <div class="avatar-wrapper">
-            <img :src="getInfoUser.avatar" class="user-avatar">
-            <i class="el-icon-caret-bottom"/>
-          </div>
+          <img :src="getInfoUser.avatar" class="user-avatar">
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item divided>
+            <el-dropdown-item>
               <span class="logout" @click="handleLogout">Log Out</span>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -112,9 +85,23 @@ export default {
   @import './css/index.scss';
   @import './css/normalize.scss';
 
-  .user-avatar {
-    width: 45px;
-    border-radius: 50%;
+  .container-nav {
+    .user-avatar {
+      width: 45px;
+      border-radius: 50%;
+    }
+
+    .avatar-container {
+      line-height: 0;
+    }
+
+    .icon-avatar {
+      padding-top: 8px;
+    }
+
+    .gn-menu-main {
+      z-index: 999
+    }
   }
 </style>
 

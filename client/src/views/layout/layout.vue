@@ -1,7 +1,9 @@
 <template>
-  <div> helo layout
+  <div>
     <navbar/>
-    <slot />
+    <div class="content-router">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -20,3 +22,9 @@ export default {
   },
 }
 </script>
+
+<style>
+  .content-router {
+    padding: 60px;
+  }
+</style>

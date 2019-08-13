@@ -1,6 +1,6 @@
 <template>
   <div style="color: #fff">
-    hello dashboard
+    Profile
   </div>
 </template>
 

@@ -16,6 +16,15 @@ export default new Router({
       }
     },
     {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('@/views/Profile.vue'),
+      meta: {
+        requiresAuth: true,
+        layout: 'default-layout'
+      }
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('@/views/Login.vue'),
@@ -35,7 +44,10 @@ export default new Router({
     },
     {
       path: '*',
-      component: () => import('@/views/404.vue')
+      component: () => import('@/views/404.vue'),
+      meta: {
+        layout: 'no-layout'
+      }
     }
   ]
 })

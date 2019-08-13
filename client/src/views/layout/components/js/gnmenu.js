@@ -44,12 +44,21 @@
 			if( !mobilecheck() ) {
 				this.trigger.addEventListener( 'mouseover', function(ev) { self._openIconMenu(); } );
 				this.trigger.addEventListener( 'mouseout', function(ev) { self._closeIconMenu(); } );
-			
+
 				this.menu.addEventListener( 'mouseover', function(ev) {
-					self._openMenu(); 
+					self._openMenu();
 					document.addEventListener( self.eventtype, self.bodyClickFn ); 
 				} );
+				this.menu.addEventListener(self.eventtype, function(ev) {
+					self._closeMenu();
+					this.removeEventListener( self.eventtype, self.bodyClickFn );
+				})
 			}
+			this.menu.addEventListener(self.eventtype, function(ev) {
+				self._closeMenu();
+				this.removeEventListener( self.eventtype, self.bodyClickFn );
+			})
+
 			this.trigger.addEventListener( this.eventtype, function( ev ) {
 				ev.stopPropagation();
 				ev.preventDefault();
