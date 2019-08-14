@@ -14,6 +14,7 @@
       <el-input
         placeholder="Please Input"
         type="text"
+        @enter.native="sendMessage()"
         v-model="chat.message">
       </el-input>
     </div>
@@ -48,6 +49,11 @@
           name: 'ChatRoom',
           params: { id: id, nickname: nickname}
         })
+      },
+
+      sendMessage() {
+        this.chat.room = this.$route.params.id
+        this.chat.message = this.chat.nickname + ' join the room'
       }
     },
   }
