@@ -1,30 +1,32 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 const users = require('./routes/api/users')
+const room = require('./routes/api/room')
+const chat = require('./routes/api/chat')
 
-const app = express();
+const app = express()
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
-const db = require('./config/keys').mongoURI;
+const db = require('./config/keys').mongoURI
 
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*')
 
   // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
 
   // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
 
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Credentials', true)
 
   // Pass to next layer of middleware
   next();
@@ -35,7 +37,9 @@ mongoose
   .then((res) => {console.log('MongoDB connected')})
   .catch((err) => console.log(err))
 
-app.use('/api/users', users);
+app.use('/api/users', users)
+app.use('/api/room', room)
+app.use('/api/chat', chat)
 
 const port = process.env.PORT || 5000;
 

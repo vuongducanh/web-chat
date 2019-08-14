@@ -48,7 +48,25 @@ export default new Router({
       meta: {
         layout: 'no-layout'
       }
-    }
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: () => import('@/views/Chat.vue'),
+      meta: {
+        requiresAuth: true,
+        layout: 'default-layout'
+      }
+    },
+    {
+      path: '/chat/:id/:nickname',
+      name: 'ChatRoom',
+      component: () => import('@/views/Chat.vue'),
+      meta: {
+        requiresAuth: true,
+        layout: 'default-layout'
+      }
+    },
   ]
 })
 

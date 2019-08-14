@@ -19,7 +19,9 @@
                 </router-link>
               </li>
               <li>
-                <a class="gn-icon gn-icon-help">Help</a>
+                <router-link tag="a" to="/chat">
+                  <a class="gn-icon gn-icon-help">Chat</a>
+                </router-link>
               </li>
               <li>
                 <a class="gn-icon gn-icon-videos" @click="handleLogout">Log Out</a>
@@ -100,7 +102,8 @@ export default {
     }
 
     .gn-menu-main {
-      z-index: 999
+      z-index: 999;
+      border-bottom: 1px solid #c6d0da;
     }
   }
 </style>
