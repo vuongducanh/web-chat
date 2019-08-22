@@ -3,7 +3,7 @@ const auth = require('../../config/middleware')
 const Chat = require('../../models/chat')
 var server = require('http').createServer(express)
 const io = require('socket.io')(server)
-server.listen(8000);
+server.listen(8080);
 
 io.on('connection', function (socket) {
   console.log('User connected')

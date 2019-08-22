@@ -56,9 +56,7 @@
 
 <script>
 import Vue from 'vue'
-import * as classie from './js/classie'
 import gnmenu from './js/gnmenu'
-Vue.use(classie)
 Vue.use(gnmenu)
 
 export default {

@@ -44,7 +44,7 @@ export default {
       chat: {},
       showMessage: false,
       nickname: this.$store.state.user.infoUser.name,
-      socket: io('http://192.168.8.215:8000')
+      socket: io('http://192.168.8.215:8080')
     }
   },
 
