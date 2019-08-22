@@ -14,9 +14,13 @@
 
     <div class="content-chat" v-if="showMessage">
       <div class="item-chat" v-chat-scroll>
-        <div class="item-message" v-for="(itemMessage, index) in listMessage" :key="index">
+        <div class="item-message" :class="itemMessage.nickname !== nickname ? 'item-message-left' : 'item-message-right'" v-for="(itemMessage, index) in listMessage" :key="index">
           <div class="message" :class="itemMessage.nickname !== nickname ? 'left' : 'right'">
             <span>{{itemMessage.message}}</span>
+          </div>
+
+          <div :v-if="itemMessage.nickname === nickname" class="message-avatar">
+            <img :src="$store.state.user.infoUser.avatar">
           </div>
         </div>
       </div>
@@ -44,7 +48,7 @@ export default {
       chat: {},
       showMessage: false,
       nickname: this.$store.state.user.infoUser.name,
-      socket: io('http://192.168.8.215:8080')
+      socket: io('http://192.168.1.161:8080')
     }
   },
 
@@ -129,9 +133,32 @@ export default {
       color: #000;
     }
 
-    .item-message{
-      display: block;
+    .item-message {
       margin: 10px 0;
+      display: flex;
+
+
+      &.item-message-right {
+        justify-content: flex-end;
+        align-items: end;
+
+         & .message-avatar {
+          margin-left: 10px;
+        }
+      }
+
+      &.item-message-left {
+        justify-content: flex-start;
+        align-items: end;
+
+        & .left {
+          order: 1;
+        }
+
+        & .message-avatar {
+          margin-right: 10px;
+        }
+      }
 
       .message {
         max-width: 164px;
@@ -144,16 +171,21 @@ export default {
         text-align: initial;
 
          &.right {
-          float: right;
           background-color: #3578e5;
           color: #fff;
         }
       }
+    }
 
-      &:after {
-        display: table;
-        content: '';
-        clear: both;
+    .message-avatar {
+      border-radius: 50%;
+      overflow: hidden;
+
+      img {
+        display: block;
+        object-fit: cover;
+        width: 28px;
+        height: 28px;
       }
     }
   }
